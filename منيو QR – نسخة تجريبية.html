@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>منيو QR – نسخة تجريبية</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#F1F3F7;--card:#fff;--ink:#14213D;--mut:#5F6B85;--line:#DDE2EC;--pri:#14213D;--onpri:#fff;--acc:#F2A900;--ok:#16905F;--bad:#C93B3B;--okbg:#DDF3E8;--badbg:#FBE3E3;--accbg:#FFF1CC;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1422;--card:#172033;--ink:#EEF1F7;--mut:#9AA6BD;--line:#28334C;--pri:#F2A900;--onpri:#14213D;--okbg:#12382A;--badbg:#44201F;--accbg:#43360F;--ok:#4FD39A;--bad:#FF8A8A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1422;--card:#172033;--ink:#EEF1F7;--mut:#9AA6BD;--line:#28334C;--pri:#F2A900;--onpri:#14213D;--okbg:#12382A;--badbg:#44201F;--accbg:#43360F;--ok:#4FD39A;--bad:#FF8A8A;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',Tahoma,Arial,sans-serif;line-height:1.6}
+button,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.demo{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.demo b{margin-inline-end:auto;font-weight:800}
+.tab{border:1px solid var(--line);background:none;border-radius:999px;padding:4px 14px}
+.tab.on{background:var(--pri);color:var(--onpri);border-color:var(--pri)}
+select{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:4px 8px}
+.wrap{max-width:1000px;margin:0 auto;padding:14px}
+.phone{max-width:440px;margin:0 auto;padding-bottom:90px}
+h1{font-size:1.5rem;font-weight:800;margin:6px 0 0}
+h2{font-size:1.1rem;margin:0 0 8px}
+.sub{color:var(--mut);margin:0 0 12px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px}
+.chip{white-space:nowrap;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 14px}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#14213D;font-weight:600}
+.item{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px}
+.emo{font-size:2rem;width:52px;height:52px;display:grid;place-items:center;background:var(--bg);border-radius:12px}
+.item .n{flex:1}.item .n b{display:block}.item .n span{color:var(--mut);font-size:.9rem}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button,.add{border:1px solid var(--line);background:var(--card);border-radius:10px;min-width:36px;height:36px;font-weight:800}
+.add{background:var(--pri);color:var(--onpri);border-color:var(--pri);padding:0 14px}
+.bar{position:fixed;inset-inline:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line)}
+.btn{display:block;width:100%;max-width:440px;margin:0 auto;border:0;border-radius:12px;background:var(--pri);color:var(--onpri);padding:12px;font-weight:800;font-size:1rem}
+.btn.alt{background:none;color:var(--ink);border:1px solid var(--line);margin-top:8px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.row{display:flex;justify-content:space-between;gap:8px;padding:3px 0}
+.tot{font-weight:800;border-top:1px dashed var(--line);margin-top:6px;padding-top:8px}
+.pay{display:flex;gap:10px;align-items:center;width:100%;text-align:start;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.pay.on{border-color:var(--acc);background:var(--accbg)}
+.pay small{display:block;color:var(--mut)}
+.badge{display:inline-block;border-radius:999px;padding:1px 10px;font-size:.85rem;font-weight:600;background:var(--accbg)}
+.badge.ok{background:var(--okbg);color:var(--ok)}.badge.bad{background:var(--badbg);color:var(--bad)}
+.steps{display:flex;margin:14px 0}
+.step{flex:1;text-align:center;font-size:.85rem;color:var(--mut);position:relative}
+.step i{display:block;width:26px;height:26px;border-radius:50%;margin:0 auto 4px;background:var(--line);line-height:26px;font-style:normal;color:var(--card)}
+.step.on{color:var(--ink);font-weight:600}.step.on i{background:var(--ok)}
+.eta{text-align:center;font-size:2.4rem;font-weight:800;margin:0}
+.stars{display:flex;justify-content:center;gap:4px}
+.stars button{background:none;border:0;font-size:2rem;color:var(--acc);padding:0 2px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.col h2{display:flex;justify-content:space-between}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.stat b{font-size:1.5rem;display:block}.stat span{color:var(--mut);font-size:.9rem}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px}
+th,td{padding:8px 10px;text-align:start;border-bottom:1px solid var(--line);white-space:nowrap}
+.empty{color:var(--mut);padding:18px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+.hint{background:var(--accbg);border-radius:12px;padding:8px 12px;margin-bottom:12px;font-size:.9rem}
+input{font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px;width:100%;direction:ltr;text-align:center;font-size:1.2rem;letter-spacing:2px}
+.loy{background:var(--pri);color:var(--onpri);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.loy .dots{display:flex;gap:6px;margin:6px 0}
+.loy .dots i{width:22px;height:22px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-style:normal;font-size:.8rem}
+.loy .dots i.f{background:var(--acc);border-color:var(--acc);color:#14213D}
+.lnk{background:none;border:0;color:var(--ink);text-decoration:underline;padding:4px;font-weight:600}
+.tg{display:flex;gap:10px;align-items:center;width:100%;text-align:start;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}.tg.on{border-color:var(--ok);background:var(--okbg)}.tg small{display:block;color:var(--mut)}
+.fld{margin-bottom:10px}.fld label{display:block;font-weight:600;margin-bottom:4px}.fld input{font-size:1rem;letter-spacing:1px;padding:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.spin{width:44px;height:44px;border:5px solid var(--line);border-top-color:var(--acc);border-radius:50%;margin:10px auto;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spin{animation-duration:4s}}
+.ref{font-family:monospace;direction:ltr;display:inline-block}
+</style>
+</head>
+<body>
+<div class="demo">
+  <b>☕ كافيه النيل · نسخة تجريبية</b>
+  <button class="tab" data-v="cust">شاشة العميل</button>
+  <button class="tab" data-v="kit">المطبخ</button>
+  <button class="tab" data-v="cash">الكاشير</button>
+  <label>الترابيزة <select id="tbl"></select></label>
+</div>
+<main id="app"></main>
+
+<script>
+const MENU=[
+{id:1,c:'مشروبات ساخنة',n:'قهوة تركي',p:45,t:4,e:'☕'},
+{id:2,c:'مشروبات ساخنة',n:'كابتشينو',p:70,t:5,e:'🥛'},
+{id:3,c:'مشروبات ساخنة',n:'شاي بالنعناع',p:30,t:3,e:'🍵'},
+{id:4,c:'مشروبات باردة',n:'آيس لاتيه',p:80,t:5,e:'🧋'},
+{id:5,c:'مشروبات باردة',n:'عصير مانجو',p:60,t:4,e:'🥭'},
+{id:6,c:'مشروبات باردة',n:'ليمون بالنعناع',p:45,t:3,e:'🍋'},
+{id:7,c:'أكل',n:'بيتزا مارجريتا',p:140,t:15,e:'🍕'},
+{id:8,c:'أكل',n:'ساندويتش كلوب',p:110,t:10,e:'🥪'},
+{id:9,c:'أكل',n:'باستا ألفريدو',p:130,t:14,e:'🍝'},
+{id:10,c:'حلويات',n:'تشيز كيك',p:85,t:2,e:'🍰'},
+{id:11,c:'حلويات',n:'وافل بالشوكولاتة',p:95,t:8,e:'🧇'},
+{id:12,c:'حلويات',n:'أم علي',p:75,t:7,e:'🍮'}];
+const CATS=[...new Set(MENU.map(m=>m.c))];
+const PAY={cash:['كاش','تدفع للكاشير عند الاستلام','💵'],insta:['إنستا باي','دفع فوري من تطبيق البنك','🏦'],voda:['فودافون كاش','دفع من المحفظة','📱'],visa:['فيزا / ماستر كارد','بطاقة بنكية','💳']};
+const ST=['new','prep','ready','done'];
+const STN={new:'تم الاستلام',prep:'قيد التحضير',ready:'جاهز',done:'تم التسليم'};
+let S={view:'cust',table:5,cat:CATS[0],cart:{},screen:'menu',pay:'cash',oid:null,orders:[],next:1001,ratings:[],phone:'',draft:'',custs:{},useFree:false,usePts:false,err:''};
+try{const d=JSON.parse(localStorage.getItem('qrmenu_db')||'null');if(d)Object.assign(S,{orders:d.orders||[],next:d.next||1001,ratings:d.ratings||[],custs:d.custs||{}});S.phone=localStorage.getItem('qrmenu_phone')||''}catch(e){}
+S.screen=S.phone?'menu':'login';
+const save=()=>{try{localStorage.setItem('qrmenu_db',JSON.stringify({orders:S.orders,next:S.next,ratings:S.ratings,custs:S.custs}));S.phone?localStorage.setItem('qrmenu_phone',S.phone):localStorage.removeItem('qrmenu_phone')}catch(e){}};
+const me=()=>S.custs[S.phone]||(S.custs[S.phone]={n:0,pts:0,free:0});
+const myOrders=()=>S.orders.filter(o=>o.phone===S.phone);
+const calc=()=>{const its=cartItems(),sub=total(its),c=me();const drinks=its.filter(x=>x.m.c.startsWith('مشروبات')).map(x=>x.m.p);const free=S.useFree&&c.free>0&&drinks.length?Math.max(...drinks):0;const left=sub-free,pd=S.usePts?Math.min(Math.floor(c.pts/100)*10,left):0;return {sub,free,pd,used:pd*10,total:left-pd}};
+const $=s=>document.querySelector(s);
+const cartItems=()=>Object.entries(S.cart).filter(e=>e[1]>0).map(([id,q])=>({m:MENU.find(x=>x.id==id),q}));
+const total=its=>its.reduce((a,x)=>a+x.m.p*x.q,0);
+const money=n=>n.toLocaleString('ar-EG')+' ج.م';
+const num=n=>n.toLocaleString('ar-EG');
+const ago=t=>Math.floor((Date.now()-t)/60000);
+function beep(){try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.1;o.start();o.stop(c.currentTime+.25)}catch(e){}}
+
+function loy(){const c=me(),k=c.n%5;return `<div class="loy"><b>نقاطك: ${num(c.pts)} نقطة</b> <small>(كل ١٠٠ نقطة = ١٠ ج.م خصم)</small><div class="dots">${[0,1,2,3,4].map(i=>`<i class="${i<k?'f':''}">${i<k?'✓':''}</i>`).join('')}</div>${c.free?`<b>🎁 عندك ${num(c.free)} مشروب مجاني من اختيارك!</b>`:`<small>باقي ${num(5-k)} طلبات على مشروبك المجاني</small>`}</div>`}
+function cust(){
+  if(S.screen==='login')return `<div class="phone wrap"><h1>أهلاً بيك في كافيه النيل ☕</h1><p class="sub">اكتب رقم موبايلك عشان نحفظ طلباتك ونجمعلك نقاط، ومشروب مجاني بعد كل ٥ طلبات.</p><input id="ph" type="tel" inputmode="numeric" maxlength="11" placeholder="01XXXXXXXXX" autocomplete="tel" value="${S.draft||''}"><p style="color:var(--bad);min-height:1.6em;margin:4px 0">${S.err}</p><button class="btn" data-a="login">دخول</button></div>`;
+  if(S.screen==='account'){const l=myOrders().slice().reverse();return `<div class="phone wrap"><h1>طلباتي</h1><p class="sub" dir="ltr" style="text-align:right">${S.phone}</p>${loy()}${l.length?l.map(o=>`<button class="pay" data-a="open" data-x="${o.id}"><span><b>طلب #${num(o.id)} · ${money(o.total)}</b><small>${o.its.map(x=>x.n).join('، ')} · ${STN[o.s]} · +${num(o.earned)} نقطة</small></span></button>`).join(''):'<div class="empty">لسه ماطلبتش حاجة</div>'}<button class="btn" data-a="go" data-x="menu">رجوع للمنيو</button><button class="btn alt" data-a="logout">تغيير الرقم</button></div>`}
+  if(S.screen==='menu'){
+    const its=cartItems(),cnt=its.reduce((a,x)=>a+x.q,0);
+    return `<div class="phone wrap"><h1>المنيو</h1><p class="sub">ترابيزة ${num(S.table)} · <button class="lnk" data-a="go" data-x="account">طلباتي (${num(myOrders().length)})</button></p>${loy()}
+    <div class="chips">${CATS.map(c=>`<button class="chip ${c===S.cat?'on':''}" data-a="cat" data-x="${c}">${c}</button>`).join('')}</div>
+    ${MENU.filter(m=>m.c===S.cat).map(m=>{const q=S.cart[m.id]||0;return `<div class="item"><div class="emo">${m.e}</div><div class="n"><b>${m.n}</b><span>${money(m.p)}</span></div>
+    ${q?`<div class="qty"><button data-a="sub" data-x="${m.id}" aria-label="إنقاص">−</button><b>${num(q)}</b><button data-a="add" data-x="${m.id}" aria-label="زيادة">+</button></div>`:`<button class="add" data-a="add" data-x="${m.id}">أضف</button>`}</div>`}).join('')}
+    </div>${cnt?`<div class="bar"><button class="btn" data-a="go" data-x="checkout">عرض الطلب (${num(cnt)}) · ${money(total(its))}</button></div>`:''}`;
+  }
+  if(S.screen==='payform'){
+    const k=calc(),m=S.pay,P=PAY[m];
+    if(S.paying)return `<div class="phone wrap"><div class="card" style="text-align:center;margin-top:40px"><div class="spin"></div><h2>${m==='visa'?'جاري تأكيد الدفع مع البنك...':m==='voda'?'وافق على طلب الدفع على موبايلك...':'وافق على طلب الدفع في تطبيق البنك...'}</h2><p class="sub">${money(k.total)} · لا تغلق الصفحة</p></div></div>`;
+    const f={visa:`<div class="fld"><label for="cn">رقم الكارت</label><input id="cn" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" autocomplete="cc-number"></div><div class="two"><div class="fld"><label for="ce">تاريخ الانتهاء</label><input id="ce" inputmode="numeric" maxlength="5" placeholder="MM/YY" autocomplete="cc-exp"></div><div class="fld"><label for="cv">CVV</label><input id="cv" inputmode="numeric" maxlength="3" placeholder="123" autocomplete="cc-csc"></div></div>`,voda:`<div class="fld"><label for="wn">رقم محفظة فودافون كاش</label><input id="wn" inputmode="numeric" maxlength="11" placeholder="010XXXXXXXX" autocomplete="tel"></div><p class="sub">هتوصلك رسالة على الموبايل عشان تأكد الدفع.</p>`,insta:`<div class="fld"><label for="ia">عنوان إنستا باي أو رقم الموبايل</label><input id="ia" maxlength="40" placeholder="name@instapay"></div><p class="sub">هتوصلك رسالة تأكيد في تطبيق البنك.</p>`}[m];
+    return `<div class="phone wrap"><h1>الدفع بـ ${P[0]}</h1><p class="sub">المبلغ المطلوب: <b>${money(k.total)}</b></p><div class="card">${f}<p id="perr" style="color:var(--bad);min-height:1.6em;margin:0"></p></div><button class="btn" data-a="confirmpay">ادفع ${money(k.total)}</button><button class="btn alt" data-a="go" data-x="checkout">رجوع</button><p class="sub" style="text-align:center;margin-top:10px">نسخة تجريبية: لا يتم خصم أي مبلغ حقيقي.</p></div>`}
+  if(S.screen==='checkout'){
+    const its=cartItems(),k=calc(),c=me();
+    return `<div class="phone wrap"><h1>مراجعة الطلب</h1><p class="sub">ترابيزة ${num(S.table)}</p>
+    <div class="card">${its.map(x=>`<div class="row"><span>${num(x.q)} × ${x.m.n}</span><span>${money(x.q*x.m.p)}</span></div>`).join('')}${k.free?`<div class="row" style="color:var(--ok)"><span>🎁 مشروب مجاني</span><span>−${money(k.free)}</span></div>`:''}${k.pd?`<div class="row" style="color:var(--ok)"><span>خصم النقاط (${num(k.used)} نقطة)</span><span>−${money(k.pd)}</span></div>`:''}<div class="row tot"><span>الإجمالي</span><span>${money(k.total)}</span></div><small class="sub">هتكسب ${num(Math.floor(k.total))} نقطة</small></div>
+    ${c.free?`<button class="tg ${S.useFree?'on':''}" data-a="tfree"><span style="font-size:1.6rem">🎁</span><span><b>استخدم مشروبك المجاني</b><small>${S.useFree&&!k.free?'أضف مشروب للسلة عشان يتخصم':'يتخصم أغلى مشروب في طلبك'}</small></span></button>`:''}${c.pts>=100?`<button class="tg ${S.usePts?'on':''}" data-a="tpts"><span style="font-size:1.6rem">⭐</span><span><b>استخدم نقاطك (${num(c.pts)})</b><small>كل ١٠٠ نقطة = ١٠ ج.م</small></span></button>`:''}
+    <h2>طريقة الدفع</h2>
+    ${Object.entries(PAY).map(([k,v])=>`<button class="pay ${S.pay===k?'on':''}" data-a="pay" data-x="${k}"><span style="font-size:1.6rem">${v[2]}</span><span><b>${v[0]}</b><small>${v[1]}</small></span></button>`).join('')}
+    <button class="btn" data-a="place" ${its.length?'':'disabled'}>${S.pay==='cash'?'أرسل الطلب':'تابع للدفع'}</button>
+    <button class="btn alt" data-a="go" data-x="menu">رجوع للمنيو</button></div>`;
+  }
+  const o=S.orders.find(x=>x.id===S.oid);
+  const i=ST.indexOf(o.s),rem=Math.max(1,o.eta-ago(o.t));
+  return `<div class="phone wrap"><h1>طلب رقم ${num(o.id)}</h1><p class="sub">ترابيزة ${num(o.table)} · ${o.paid?'<span class="badge ok">مدفوع</span>':'<span class="badge bad">ادفع كاش للكاشير</span>'}${o.earned?` · +${num(o.earned)} نقطة`:''}</p>
+  <div class="card"><div class="steps">${ST.map((s,k)=>`<div class="step ${k<=i?'on':''}"><i>${k<i?'✓':num(k+1)}</i>${STN[s]}</div>`).join('')}</div>
+  ${o.s==='ready'?'<p class="eta" style="font-size:1.6rem">طلبك جاهز 🎉</p>':o.s==='done'?'<p class="eta" style="font-size:1.4rem">بالهنا والشفا</p>':`<p class="eta">${num(rem)} دقيقة</p><p class="sub" style="text-align:center">الوقت المتوقع لتجهيز الطلب</p>`}</div>
+  <div class="card">${o.its.map(x=>`<div class="row"><span>${num(x.q)} × ${x.n}</span><span>${money(x.q*x.p)}</span></div>`).join('')}<div class="row tot"><span>${PAY[o.pay][0]}</span><span>${money(o.total)}</span></div>${o.ref?`<div class="row"><small class="sub">رقم العملية</small><small class="ref">${o.ref}</small></div>${o.pdet?`<div class="row"><small class="sub">تم الدفع بـ</small><small class="ref">${o.pdet}</small></div>`:''}`:''}</div>
+  ${o.s==='done'?(o.r?`<div class="card" style="text-align:center"><b>شكراً لتقييمك ${'★'.repeat(o.r)}</b></div>`:`<div class="card"><h2 style="text-align:center">قيّم تجربتك في كافيه النيل</h2><div class="stars">${[1,2,3,4,5].map(n=>`<button data-a="rate" data-x="${n}" aria-label="${n} نجوم">★</button>`).join('')}</div></div>`):''}
+  <button class="btn ${o.s==='done'?'':'alt'}" data-a="neworder">طلب جديد</button><button class="btn alt" data-a="go" data-x="account">طلباتي</button></div>`;
+}
+
+function kit(){
+  const act=S.orders.filter(o=>o.s!=='done');
+  const col=(s,t,btn)=>{const l=act.filter(o=>o.s===s);return `<div class="col"><h2>${t} <span class="badge">${num(l.length)}</span></h2>${l.length?l.map(o=>`<div class="card"><div class="row"><b>ترابيزة ${num(o.table)}</b><span>#${num(o.id)} · من ${num(ago(o.t))} د</span></div>${o.its.map(x=>`<div>${num(x.q)} × ${x.n}</div>`).join('')}<div class="row"><span class="badge ${o.paid?'ok':'bad'}">${o.paid?'مدفوع':'كاش'}</span><button class="add" data-a="adv" data-x="${o.id}">${btn}</button></div></div>`).join(''):'<div class="empty">لا توجد طلبات</div>'}</div>`};
+  return `<div class="wrap"><div class="hint">شاشة المطبخ: أي طلب جديد من العميل بيظهر هنا فوراً مع صوت تنبيه. جرّب اطلب من "شاشة العميل" وارجع هنا.</div><div class="cols">${col('new','طلبات جديدة','ابدأ التحضير')}${col('prep','قيد التحضير','الطلب جاهز')}${col('ready','جاهزة للتسليم','تم التسليم')}</div></div>`;
+}
+
+function cash(){
+  const paid=S.orders.filter(o=>o.paid),sales=paid.reduce((a,o)=>a+o.total,0),pend=S.orders.filter(o=>!o.paid).reduce((a,o)=>a+o.total,0);
+  const avg=S.ratings.length?(S.ratings.reduce((a,b)=>a+b,0)/S.ratings.length).toFixed(1):'—';
+  return `<div class="wrap"><div class="stats"><div class="stat"><b>${num(S.orders.length)}</b><span>عدد الطلبات</span></div><div class="stat"><b>${money(sales)}</b><span>مبيعات مدفوعة</span></div><div class="stat"><b>${money(pend)}</b><span>كاش لم يُستلم بعد</span></div><div class="stat"><b>${avg}</b><span>متوسط التقييم</span></div></div>
+  ${S.orders.length?`<div class="scroll"><table><tr><th>الطلب</th><th>الترابيزة</th><th>الموبايل</th><th>الإجمالي</th><th>طريقة الدفع</th><th>الدفع</th><th>الحالة</th><th></th></tr>${[...S.orders].reverse().map(o=>`<tr><td>#${num(o.id)}</td><td>${num(o.table)}</td><td dir="ltr">${o.phone}</td><td>${money(o.total)}</td><td>${PAY[o.pay][0]}</td><td><span class="badge ${o.paid?'ok':'bad'}">${o.paid?'مدفوع':'لم يُدفع'}</span>${o.ref?` <small class="ref">${o.ref}</small>`:''}</td><td>${STN[o.s]}</td><td>${o.paid?'':`<button class="add" data-a="cashin" data-x="${o.id}">تأكيد استلام الكاش</button>`}</td></tr>`).join('')}</table></div>`:'<div class="empty">لا توجد طلبات بعد. اطلب من شاشة العميل لتظهر هنا مع حالة الدفع.</div>'}</div>`;
+}
+
+function render(){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.v===S.view));
+  $('#tbl').value=S.table;
+  $('#app').innerHTML=S.view==='cust'?cust():S.view==='kit'?kit():cash();
+}
+$('#tbl').innerHTML=Array.from({length:12},(_,k)=>`<option value="${k+1}">${num(k+1)}</option>`).join('');
+$('#tbl').onchange=e=>{S.table=+e.target.value;S.cart={};S.screen=S.phone?'menu':'login';render()};
+
+function finish(pd){
+  const its=cartItems();if(!its.length)return;
+  const k=calc(),c=me(),o={id:S.next++,phone:S.phone,table:S.table,its:its.map(i=>({n:i.m.n,p:i.m.p,q:i.q})),total:k.total,pay:S.pay,paid:S.pay!=='cash'||k.total===0,s:'new',t:Date.now(),eta:Math.max(...its.map(i=>i.m.t))+its.length-1,r:0,earned:Math.floor(k.total),usedPts:k.used,freeUsed:k.free>0,ref:pd?pd.ref:'',pdet:pd?pd.d:''};
+  S.orders.push(o);S.oid=o.id;S.cart={};S.screen='track';S.pay='cash';beep();
+  c.pts+=o.earned-o.usedPts;if(o.freeUsed)c.free--;c.n++;if(c.n%5===0)c.free++;S.useFree=S.usePts=false;
+  save();render();
+}
+document.addEventListener('input',e=>{const t=e.target;if(t.id==='cn')t.value=t.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim();if(t.id==='ce'){const v=t.value.replace(/\D/g,'').slice(0,4);t.value=v.length>2?v.slice(0,2)+'/'+v.slice(2):v}});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a],[data-v]');if(!t)return;
+  if(t.dataset.v){S.view=t.dataset.v;return render()}
+  const a=t.dataset.a,x=t.dataset.x;
+  if(a==='cat')S.cat=x;
+  if(a==='add')S.cart[x]=(S.cart[x]||0)+1;
+  if(a==='sub')S.cart[x]=Math.max(0,(S.cart[x]||0)-1);
+  if(a==='go'){S.screen=x;if(x==='checkout'&&!cartItems().length)S.screen='menu'}
+  if(a==='login'){
+    const v=($('#ph')?.value||'').replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\D/g,'');
+    if(!/^01[0125]\d{8}$/.test(v)){S.draft=v;S.err='اكتب رقم موبايل مصري صحيح من ١١ رقم';return render()}
+    S.phone=v;S.err='';S.screen='menu';me();
+  }
+  if(a==='logout'){S.phone='';S.draft='';S.cart={};S.screen='login';S.useFree=S.usePts=false}
+  if(a==='open'){S.oid=+x;S.screen='track'}
+  if(a==='tfree')S.useFree=!S.useFree;
+  if(a==='tpts')S.usePts=!S.usePts;
+  if(a==='pay')S.pay=x;
+  if(a==='place'){
+    if(!cartItems().length)return;
+    if(S.pay!=='cash'&&calc().total>0){S.screen='payform';return render()}
+    finish(null);
+  }
+  if(a==='confirmpay'){
+    const g=id=>($('#'+id)?.value||'').trim(),m=S.pay;let er='',d='';
+    if(m==='visa'){const n=g('cn').replace(/\D/g,''),e2=g('ce'),v=g('cv'),mm=+e2.slice(0,2),yy=+e2.slice(3,5);
+      if(n.length!==16)er='رقم الكارت لازم يكون ١٦ رقم';
+      else if(!/^\d\d\/\d\d$/.test(e2)||mm<1||mm>12||yy<26)er='تاريخ الانتهاء غير صحيح';
+      else if(!/^\d{3}$/.test(v))er='كود CVV لازم يكون ٣ أرقام';
+      else d='•••• '+n.slice(-4)}
+    if(m==='voda'){const w=g('wn').replace(/\D/g,'');if(!/^010\d{8}$/.test(w))er='اكتب رقم محفظة فودافون كاش صحيح (010...)';else d=w}
+    if(m==='insta'){const v=g('ia');if(v.length<5)er='اكتب عنوان إنستا باي أو رقم الموبايل';else d=v}
+    if(er){$('#perr').textContent=er;return}
+    S.paying=true;render();
+    setTimeout(()=>{S.paying=false;finish({d,ref:'PAY-'+Math.random().toString(36).slice(2,8).toUpperCase()})},2200);
+    return;
+  }
+  if(a==='adv'){const o=S.orders.find(o=>o.id==x);o.s=ST[ST.indexOf(o.s)+1]}
+  if(a==='cashin')S.orders.find(o=>o.id==x).paid=true;
+  if(a==='rate'){S.orders.find(o=>o.id===S.oid).r=+x;S.ratings.push(+x)}
+  if(a==='neworder'){S.screen='menu';S.oid=null}
+  save();render();
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='ph')document.querySelector('[data-a="login"]').click()});
+setInterval(()=>{if(S.screen!=='login'&&S.screen!=='payform'&&(S.view!=='cust'||S.screen==='track'))render()},15000);
+render();
+</script>
+</body>
+</html>
